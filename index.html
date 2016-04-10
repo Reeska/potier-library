@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Potier Library</title>
+		<meta charset="UTF-8" />
+		
+		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
+		<link href="css/main.css" type="text/css" rel="stylesheet"/>
+	</head>
+	<body class="loader" ng-app="main"  ng-controller="libraryCtrl as library">
+		<header class="jumbotron">
+			<h1>Henri Potier Library's</h1>
+		</header>
+		
+		<main>
+			<div class="central">
+				<cart></cart>
+				<catalog></catalog>
+			</div>
+		</main>
+		
+		<footer>
+			&copy; 2016 Henri Potier
+		</footer>
+		
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+			TEMPLATES
+		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->			
+		 
+		<script type="text/ng-template" id="catalog.html">
+			<div class="panel panel-default catalog">
+				<div class="panel-heading">
+					Books
+				</div>
+				
+				<div class="panal-body">
+					<div class="input-group">
+						<span class="input-group-addon">Search</span>
+						<input type="text" class="form-control" ng-model="$ctrl.filter" ng-change="$ctrl.search()" />
+					</div>
+				</div>	
+				
+				<ul class="books list-group">
+					<li class="loader list-group-item" ng-show="$ctrl.loading"></li>
+					<li class="emptiness list-group-item" ng-show="$ctrl.books.length == 0">
+						<p>No results.</p>
+					</li>
+					<li class="book list-group-item" ng-repeat="book in $ctrl.books">
+						<book-item book="book" />
+					</li>
+				</ul>
+			</div>
+		</script>
+		 
+		<script type="text/ng-template" id="bookItem.html">
+			<div class="pic">
+				<img ng-src="{{ $ctrl.book.cover }}" alt="{{ $ctrl.book.title }}" class="min" />
+			</div>
+			<div class="info">
+				<span>{{ $ctrl.book.title }}</span>
+				<div class="isbn"><strong>IBSN</strong>: {{ $ctrl.book.isbn }}</div>
+				<div class="price"><strong>Price</strong>: {{ $ctrl.book.price | number : 2 }} &euro;</div>
+				<div>
+					<button class="btn btn-primary" ng-click="$ctrl.cart.addItem($ctrl.book)">
+						<i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
+					</button>
+				</div>
+			</div>				
+		</script>		
+		
+		<script type="text/ng-template" id="cart.html">
+			<div class="panel panel-default cart">
+				<div class="panel-heading clickable" ng-click="$ctrl.toggle()">
+					Cart <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : $ctrl.toggled, 'glyphicon-chevron-up' : !$ctrl.toggled}"></i> 
+				</div>
+
+				<div class="panel-body emptiness" ng-if="$ctrl.cart.empty()" ng-show="$ctrl.toggled">
+					<p>Cart is empty.</p>
+				</div>
+				
+				<table class="table" ng-if="!$ctrl.cart.empty()" ng-show="$ctrl.toggled">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Quantity</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="order in $ctrl.cart.orders">
+							<th>{{ order.item.title }}</th>
+							<th>
+								<span class="label label-default" ng-click="$ctrl.cart.increaseItem(order.item)">
+									<i class="glyphicon glyphicon-plus"></i>
+								</span>
+								{{ order.quantity }} 
+								<span class="label label-default" ng-click="$ctrl.cart.decreaseItem(order.item)">
+									<i class="glyphicon glyphicon-minus"></i>
+								</span>
+							</th>
+							<th>{{ order.item.price }}</th>
+						</tr>					
+					</tbody>
+					<tfooter>
+						<tr>
+							<td>
+								<strong>Total</strong>
+							</td>
+							<td colspan="3" class="total">
+								{{ $ctrl.cart.total | number : 2 }} &euro;
+								<div class="real-total" ng-show="$ctrl.cart.total != $ctrl.cart.realTotal">
+									{{ $ctrl.cart.realTotal | number : 2 }} &euro;
+								</div>
+							</td>
+						</tr>
+					</tfooter>
+				</table>
+			</div>		
+		</script>
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+			LIB
+		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+		<script src="node_modules/jquery/dist/jquery.min.js"></script>
+		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>		
+		<script src="node_modules/angular/angular.min.js"></script>
+		
+		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
+			APP
+		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
+		<script src="js/main.js"></script>
+		<script src="js/catalog/services/book.js"></script>
+		<script src="js/catalog/components/catalog.js"></script>
+		<script src="js/cart/services/sale.js"></script>
+		<script src="js/cart/services/cart.js"></script>
+		<script src="js/cart/components/cart.js"></script>
+	</body>
+</html>

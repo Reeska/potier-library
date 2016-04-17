@@ -1,12 +1,21 @@
 angular.module('main')
 
-
 /**
  * Offers manager service : get and apply
  */
-.service('bookService', function($http, config) {
+.service('catalogService', function($http, config) {
+	var self = this;
 	
-	this.getAll = function(callback) {
+	/*
+	 * API
+	 */
+	self.all = all;
+	self.search = search;
+	
+	/*
+	 * Implementation
+	 */
+	function all(callback) {
 		var fn = angular.isFunction(callback) ? callback : function() {};
 		
 		return $http
@@ -18,8 +27,8 @@ angular.module('main')
 			});	
 	};
 	
-	this.search = function(filter, callback) {
-		return this.getAll(function(books, error) {
+	function search(filter, callback) {
+		return self.all(function(books, error) {
 			if (error) {
 				callback([], true);
 				return;

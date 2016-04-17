@@ -9,7 +9,15 @@
     "jquery": "^2.2.3"
   },
   "devDependencies": {
+    "concurrently": "^2.0.0",
     "connect": "^3.4.1",
-    "serve-static": "^1.10.2"
+    "serve-static": "^1.10.2",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "scripts": {
+    "start": "node_modules/concurrently/src/main.js \"npm run watch\" \"npm run serve\"",
+    "watch": "node_modules/webpack/bin/webpack.js --watch -d",
+    "serve": "node server.js"
   }
 }

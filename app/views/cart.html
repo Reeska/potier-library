@@ -1,0 +1,47 @@
+<div class="panel panel-default cart">
+	<div class="panel-heading clickable" ng-click="cart.toggle()">
+		Cart <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : cart.toggled, 'glyphicon-chevron-up' : !cart.toggled}"></i> 
+	</div>
+
+	<div class="panel-body emptiness" ng-if="cart.empty()" ng-show="cart.toggled">
+		<p>Cart is empty.</p>
+	</div>
+	
+	<table class="table" ng-if="!cart.empty()" ng-show="cart.toggled">
+		<thead>
+			<tr>
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Price</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="order in cart.orders()">
+				<th>{{ order.item.title }}</th>
+				<th>
+					<span class="label label-default" ng-click="cart.increaseItem(order.item)">
+						<i class="glyphicon glyphicon-plus"></i>
+					</span>
+					{{ order.quantity }} 
+					<span class="label label-default" ng-click="cart.decreaseItem(order.item)">
+						<i class="glyphicon glyphicon-minus"></i>
+					</span>
+				</th>
+				<th>{{ order.item.price }}</th>
+			</tr>					
+		</tbody>
+		<tfooter>
+			<tr>
+				<td>
+					<strong>Total</strong>
+				</td>
+				<td colspan="3" class="total">
+					{{ cart.total() | number : 2 }} &euro;
+					<div class="real-total" ng-show="cart.total() != cart.realTotal()">
+						{{ cart.realTotal() | number : 2 }} &euro;
+					</div>
+				</td>
+			</tr>
+		</tfooter>
+	</table>
+</div>

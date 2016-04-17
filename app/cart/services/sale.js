@@ -6,15 +6,26 @@ angular.module('main')
 .service('saleService', function($http, config) {
 	var self = this;
 	
-	this.getAndApplyOffers = function(books, total, fn) {
-		this.getOffers(books, function(offers) {
+	/*
+	 * API
+	 */
+	self.getAndApplyOffers = getAndApplyOffers;
+	self.getOffers = getOffers;
+	self.applyOffers = applyOffers;
+	self.applyOffer = applyOffer;
+	
+	/*
+	 * Implementation
+	 */
+	function getAndApplyOffers(books, total, fn) {
+		self.getOffers(books, function(offers) {
 			var offeredTotal = self.applyOffers(total, offers);
 			
 			angular.isFunction(fn) && fn(offeredTotal);
 		});
 	};
 	
-	this.getOffers = function(books, fn) {
+	function getOffers(books, fn) {
 		if (!books || !books.length) {
 			angular.isFunction(fn) && fn();
 			return;
@@ -40,7 +51,7 @@ angular.module('main')
 		});
 	};
 	
-	this.applyOffers = function(total, offers) {
+	function applyOffers(total, offers) {
 		if (!offers || !offers.length) {
 			return total;
 		}
@@ -58,7 +69,7 @@ angular.module('main')
 		return minus;
 	};
 	
-	this.applyOffer = function(total, offer) {
+	function applyOffer(total, offer) {
 		switch(offer.type) {
 		case 'percentage':
 			return total * (1 - offer.value/100);
@@ -72,5 +83,5 @@ angular.module('main')
 		return total;
 	};	
 	
-	return this;
+	return self;
 })

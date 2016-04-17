@@ -1,0 +1,13 @@
+<div class="pic">
+	<img ng-src="{{ item.book.cover }}" alt="{{ item.book.title }}" class="min" />
+</div>
+<div class="info">
+	<span>{{ item.book.title }}</span>
+	<div class="isbn"><strong>IBSN</strong>: {{ item.book.isbn }}</div>
+	<div class="price"><strong>Price</strong>: {{ item.book.price | number : 2 }} &euro;</div>
+	<div>
+		<button class="btn btn-primary" ng-click="item.addToCart()">
+			<i class="glyphicon glyphicon-shopping-cart"></i> Add to cart
+		</button>
+	</div>
+</div>

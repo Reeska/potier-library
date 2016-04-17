@@ -7,6 +7,6 @@ A simple Angular application of an online bookshop.
 
 In command line :
 
-`node app.js`
+`npm start`
 
 And in a browser go to : http://localhost:8080

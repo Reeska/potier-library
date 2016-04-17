@@ -1,6 +1,11 @@
 <div class="panel panel-default cart">
-	<div class="panel-heading clickable" ng-click="cart.toggle()">
-		Cart <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : cart.toggled, 'glyphicon-chevron-up' : !cart.toggled}"></i> 
+	<div class="panel-heading">
+		<span class="clickable" ng-click="cart.toggle()">
+			Cart <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : cart.toggled, 'glyphicon-chevron-up' : !cart.toggled}"></i>
+		</span> 
+		<span class="actions clickable">
+			<i class="glyphicon glyphicon-trash" uib-tooltip="Clear cart" ng-click="cart.clear()"></i>
+		</span>
 	</div>
 
 	<div class="panel-body emptiness" ng-if="cart.empty()" ng-show="cart.toggled">

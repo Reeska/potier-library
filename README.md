@@ -5,7 +5,11 @@ A simple Angular application of an online bookshop.
 
 # Usage
 
-In command line :
+Install dependencies with :
+
+`npm install`
+
+And run app with :
 
 `npm start`
 

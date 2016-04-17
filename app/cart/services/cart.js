@@ -1,29 +1,23 @@
-angular.module('main')
-
-/**
- * Cart manager service
- */
-.service('cartService', function($rootScope, saleService) {
+export default function cartService($rootScope, saleService, storageService) {
 	var self = this;
 	
 	/*
 	 * Properties
 	 */
-	self.items = [];
-	self.orders = [];
+	self.orders = storageService.get('orders', []);
 	self.total = 0;
 	self.realTotal = 0;
 	
 	/*
 	 * API
 	 */
-	self.findItem = findItem;
 	self.findOrder = findOrder;
 	self.addItem = addItem;
 	self.removeItem = removeItem;
 	self.increaseItem = increaseItem;
 	self.decreaseItem = decreaseItem;
 	self.empty = empty;
+	self.clear = clear;
 	self.calculation = calculation;
 	
 	/*
@@ -38,28 +32,16 @@ angular.module('main')
 	/*
 	 * Implementation
 	 */
-	function findItem(item) {
-		var index = self.items.indexOf(item);
-		return index >= 0 ? index : undefined;
-	};
-	
 	function findOrder(item) {
-		var index = self.findItem(item);
-		
-		if (index !== undefined) {
-			return self.orders[index];
-		}
+		return self.orders.find(order => item.isbn == order.item.isbn);
 	};
 	
 	function addItem(item) {
 		var order = self.findOrder(item);
 		
 		if (!order) {
-			var index = self.items.length;
-			
-			self.items.push(item);
 			self.orders.push({
-				index : index,
+				index : self.orders.length,
 				item : item,
 				quantity : 1
 			});
@@ -71,7 +53,6 @@ angular.module('main')
 	function removeItem(item) {
 		var order = self.findOrder(item);
 		if (order) {
-			self.items.splice(order.index, 1);
 			self.orders.splice(order.index, 1);
 		}
 	};	
@@ -99,8 +80,12 @@ angular.module('main')
 	};
 	
 	function empty() {
-		return !self.items.length;
+		return !self.orders.length;
 	};
+
+	function clear() {
+		self.orders.splice(0, self.orders.length);
+	}
 	
 	function calculation() {
 		var _total = 0;
@@ -111,10 +96,10 @@ angular.module('main')
 		
 		self.realTotal = _total;
 		
-		saleService.getAndApplyOffers(self.items, _total, function(offeredTotal) {
+		saleService.getAndApplyOffers(self.orders, _total, function(offeredTotal) {
 			self.total = offeredTotal;
 		});
 	};
 	
 	return self;
-})
+}

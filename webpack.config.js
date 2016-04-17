@@ -2,18 +2,29 @@
 var webpack = require('webpack'), 
 	path = require('path');
 
-var APP = path.join(__dirname, 'app');
+var app = path.join(__dirname, 'app');
 
 module.exports = {
-	context : APP,
+	context : app,
 	entry : {
-		app : ['webpack/hot/dev-server', './test.js']
+		app : ['babel-polyfill', './main.js']
 	},
 	output : {
-		path : APP,
 		filename : 'build/bundle.js'
 	},
-	plugins: [  
-      new webpack.HotModuleReplacementPlugin()
-    ]	
+	externals: {
+		'angular': 'angular'
+	},
+    module: {
+	  loaders: [
+	    {
+	      test: /\.jsx?$/,
+	      exclude: /(node_modules|bower_components)/,
+	      loader: 'babel',
+	      query: {
+	        presets: ['es2015']
+	      }
+	    }
+	  ]
+	}    
 };

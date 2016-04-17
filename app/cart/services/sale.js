@@ -1,9 +1,4 @@
-angular.module('main')
-
-/**
- * Offers manager service : get and apply
- */
-.service('saleService', function($http, config) {
+export default function saleService($http, config) {
 	var self = this;
 	
 	/*
@@ -33,7 +28,7 @@ angular.module('main')
 		
 		var isbns = [];
 		books.forEach(function(value) {
-			this.push(value.isbn);
+			this.push(value.item.isbn);
 		}, isbns);
 		
 		var uri = config.serviceDomain + '/' +
@@ -84,4 +79,4 @@ angular.module('main')
 	};	
 	
 	return self;
-})
+}

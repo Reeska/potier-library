@@ -54,6 +54,10 @@ footer {
 	text-decoration: line-through;
 }
 
+.cart .actions {
+	float: right;
+}
+
 .books .book .pic {
 	display: inline-block;
 }

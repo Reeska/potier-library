@@ -1,9 +1,4 @@
-angular.module('main')
-
-/**
- * Component Cart
- */
-.component('cart', {
+export default {
 	templateUrl: 'app/views/cart.html',
 	controllerAs: 'cart',
 	bindings : {
@@ -21,6 +16,7 @@ angular.module('main')
 		 */
 		self.toggle = toggle;
 		self.empty = empty;
+		self.clear = clear;
 		self.orders = orders;
 		self.increaseItem = increaseItem;
 		self.decreaseItem = decreaseItem;
@@ -37,6 +33,10 @@ angular.module('main')
 		function empty() {
 			return cartService.empty();
 		}
+
+		function clear() {
+			cartService.clear();
+		}
 		
 		function orders() {
 			return cartService.orders;
@@ -47,7 +47,7 @@ angular.module('main')
 		}
 		
 		function decreaseItem(item) {
-			return cartService.increaseItem(item);
+			return cartService.decreaseItem(item);
 		}
 		
 		function total() {
@@ -58,6 +58,5 @@ angular.module('main')
 			return cartService.realTotal;
 		}		
 	}
-})
-
+}
 ;

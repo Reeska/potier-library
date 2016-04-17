@@ -1,9 +1,4 @@
-angular.module('main')
-
-/**
- * Offers manager service : get and apply
- */
-.service('catalogService', function($http, config) {
+export default function catalogService($http, config) {
 	var self = this;
 	
 	/*
@@ -43,6 +38,5 @@ angular.module('main')
 	};
 	
 	return this;
-})
-
+}
 ;

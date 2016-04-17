@@ -7,15 +7,14 @@
 		<link href="node_modules/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
 		<link href="css/main.css" type="text/css" rel="stylesheet"/>
 	</head>
-	<body class="loader" ng-app="main" ng-controller="LibraryCtrl as library">
+	<body class="loader" ng-app="potier.library">
 		<header class="jumbotron">
 			<h1>Henri Potier Library's</h1>
 		</header>
 		
 		<main>
 			<div class="central">
-				<cart></cart>
-				<catalog></catalog>
+				<library></library>
 			</div>
 		</main>
 		
@@ -26,22 +25,14 @@
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 			LIB
 		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
-		<script src="app/bundle.js"></script>
-		 
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
-		<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>		
+		<!-- <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script> -->
 		<script src="node_modules/angular/angular.min.js"></script>
+		<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 		
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
 			APP
 		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->		
-		<script src="app/main.js"></script>
-		<script src="app/library/controllers/LibraryCtrl.js"></script>
-		<script src="app/catalog/services/catalog.js"></script>
-		<script src="app/catalog/components/bookItem.js"></script>
-		<script src="app/catalog/components/catalog.js"></script>
-		<script src="app/cart/services/sale.js"></script>
-		<script src="app/cart/services/cart.js"></script>
-		<script src="app/cart/components/cart.js"></script>
+		 <script src="build/bundle.js"></script>
 	</body>
 </html>

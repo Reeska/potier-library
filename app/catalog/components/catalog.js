@@ -1,9 +1,4 @@
-angular.module('main')
-
-/**
- * Component bookItem : item of book list
- */
-.component('catalog', {
+export default {
 	templateUrl: 'app/views/catalog.html',
 	bindings : {
 	},
@@ -41,6 +36,5 @@ angular.module('main')
 			});
 		};
 	}
-})
-
+}
 ;

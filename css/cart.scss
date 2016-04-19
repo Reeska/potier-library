@@ -1,0 +1,23 @@
+/**
+ * Cart component
+ */
+.cart {
+    float: right;
+    width: 30%;
+
+	.emptiness {
+		font-style: italic;
+	}    
+
+	.total {
+		text-align: right;
+	}	
+
+	.real-total {
+		text-decoration: line-through;
+	}	
+
+	.actions {
+		float: right;
+	}	
+}

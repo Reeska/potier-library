@@ -4,6 +4,8 @@ import cartService from './services/cart';
 import saleService from './services/sale';
 import tooltip from 'angular-ui-bootstrap/src/tooltip/index-nocss';
 
+require('../../css/cart.scss');
+
 export default angular
 	.module('potier.library.cart', [tooltip])
 		.component('cart', cart)

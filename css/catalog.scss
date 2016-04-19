@@ -1,0 +1,38 @@
+/**
+ * Catalog component
+ */
+.catalog {
+    float: left;
+    width: 69%;
+}
+
+/**
+ * Book list
+ */
+.books {
+	.book {
+		display: relative;
+
+		.pic {
+			display: inline-block;
+
+			img {
+				height: 57px;
+			}			
+		}
+
+		.isbn {
+			font-size: small;
+			font-style: italic;
+		}
+
+		.info {
+			display: inline-block;
+			vertical-align: middle;
+		}	
+	}
+
+	.emptiness {
+		font-style: italic;
+	}	
+}

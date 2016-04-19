@@ -5,6 +5,8 @@ import cartModule from './cart/cart.module';
 import catalogModule from './catalog/catalog.module';
 import 'babel-polyfill'; 
 
+require('../css/main.scss');
+
 /**
  * Init main app
  */

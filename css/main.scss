@@ -1,0 +1,42 @@
+/**
+ * Layout
+ */
+header {
+
+}
+
+footer {
+	text-align: center;
+}
+
+.central {
+	width: 95%;
+	margin: auto;
+
+	&:after {
+		content: '';
+		clear: both;
+		display: block;
+	}	
+}
+
+/**
+ * Transverse
+ */
+.loader {
+	position: relative;
+
+	&:before {
+	    content: '';
+	    display: block;
+	    width: 100%;
+	    height: 100%;
+	    background: white url('../img/loader.gif') no-repeat center center;
+	    position: absolute;
+	    z-index: 1000;
+	}	
+}
+
+.clickable {
+	cursor: pointer;
+}

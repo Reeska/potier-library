@@ -6,7 +6,7 @@ var app = path.join(__dirname, 'app');
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-const sassLoaders = [
+var sassLoaders = [
     'css?url=false',
     'sass?includePaths[]=' + path.join(__dirname)
 ];

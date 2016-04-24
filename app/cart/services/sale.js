@@ -75,10 +75,10 @@ export default function saleService($http, config) {
 		 * Test all offers
 		 */
 		offers.forEach(value => {
-			let value = self.applyOffer(total, value);
+			let price = self.applyOffer(total, value);
 			
-			if (minus === undefined || value < minus) {
-				minus = value;
+			if (minus === undefined || price < minus) {
+				minus = price;
 			}
 		});
 		

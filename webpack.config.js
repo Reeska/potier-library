@@ -36,7 +36,7 @@ module.exports = {
             }
         }, 
         /**
-         * Required stylesheets compilation for component
+         * Required stylesheets compilation for components
          */
         {
             test: /\.scss$/,
@@ -44,7 +44,7 @@ module.exports = {
             loader: 'style!' + sassLoaders.join('!')
         }, 
         /**
-         * Main stylesheet (need for first time styles)
+         * Main stylesheet (need for application starting styles)
          */
         {
             test: /main\.scss$/,

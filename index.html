@@ -10,11 +10,13 @@
 	<body class="loader" ng-app="potier.library">
 		<header class="jumbotron">
 			<h1>Henri Potier Library's</h1>
+
+			<header-inner></header-inner>
 		</header>
 		
 		<main>
 			<div class="central">
-				<library></library>
+				<div ng-view></div>
 			</div>
 		</main>
 		
@@ -27,6 +29,7 @@
 		 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
 		<script src="node_modules/jquery/dist/jquery.min.js"></script>
 		<script src="node_modules/angular/angular.min.js"></script>
+		<script src="node_modules/angular-route/angular-route.min.js"></script>
 		<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
 		
 		<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 

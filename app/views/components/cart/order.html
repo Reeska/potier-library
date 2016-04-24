@@ -1,0 +1,17 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        Shipping address
+		<span class="actions clickable">
+			<i class="glyphicon glyphicon-trash" uib-tooltip="Clear cart" ng-click="order.removeAddress()"></i>
+		</span>
+    </div>
+    <div class="panel-body">
+        <form>
+            <address address="order.address"></address>
+
+            <div>
+                <button class="btn btn-success" ng-click="order.proceed()">Confirm order</button>
+            </div>
+        </form>
+    </div>
+</div>

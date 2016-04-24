@@ -10,32 +10,41 @@ export default function catalogService($http, config) {
 	/*
 	 * Implementation
 	 */
-	function all(callback) {
-		var fn = angular.isFunction(callback) ? callback : function() {};
-		
+
+	/**
+	 * Get all books from database.
+	 *
+	 * @param fn
+	 * @returns {Promise.<*>|*}
+	 */
+	function all(fn) {
 		return $http
 			.get(config.serviceDomain + '/' + config.services.books)
-			.then(function(response) {
-				fn(response.data);
-			}, function() {
-				fn([], true);
-			});	
-	};
-	
+			.then(
+				response => fn(response.data),
+				() => fn([], true)
+			);
+	}
+
+	/**
+	 * Search books for this filter.
+	 *
+	 * @param filter
+	 * @param callback
+	 * @returns {Promise.<*>|*|*}
+	 */
 	function search(filter, callback) {
-		return self.all(function(books, error) {
+		return self.all((books, error) => {
 			if (error) {
 				callback([], true);
 				return;
 			}
 			
-			var result = books.filter(function(value) {
-				return !!value.title.match(filter);
-			});
-			
+			var result = books.filter(value => !!value.title.match(filter));
+
 			callback(result);
 		});
-	};
+	}
 	
 	return this;
 }

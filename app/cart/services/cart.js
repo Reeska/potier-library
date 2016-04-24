@@ -4,14 +4,14 @@ export default function cartService($rootScope, saleService, storageService) {
 	/*
 	 * Properties
 	 */
-	self.orders = storageService.get('orders', []);
+	self.products = storageService.get('products', []);
 	self.total = 0;
 	self.realTotal = 0;
 	
 	/*
 	 * API
 	 */
-	self.findOrder = findOrder;
+	self.findProduct = findProduct;
 	self.addItem = addItem;
 	self.removeItem = removeItem;
 	self.increaseItem = increaseItem;
@@ -19,87 +19,132 @@ export default function cartService($rootScope, saleService, storageService) {
 	self.empty = empty;
 	self.clear = clear;
 	self.calculation = calculation;
-	
+
+	/*
+	 * Init
+	 */
+	self.$onInit = self.calculation;
+
 	/*
 	 * Watchers
 	 */
-	$rootScope.$watch(function() {
-		return self.orders;
-	}, function() {
+
+	/**
+	 * When product list changed recalcule total price.
+	 */
+	$rootScope.$watch(() => {
+		return self.products;
+	}, () => {
 		self.calculation();
 	}, true);
 	
 	/*
 	 * Implementation
 	 */
-	function findOrder(item) {
-		return self.orders.find(order => item.isbn == order.item.isbn);
-	};
-	
+
+	/**
+	 * Find product element in product list which matches param item.
+	 * @param item
+	 * @returns object
+	 */
+	function findProduct(item) {
+		return self.products.find(product => item.isbn == product.item.isbn);
+	}
+
+	/**
+	 * Add item to the cart.
+	 * If the cart already contains this item, product's quantity is increased by 1.
+	 * @param item
+	 */
 	function addItem(item) {
-		var order = self.findOrder(item);
+		var product = self.findProduct(item);
 		
-		if (!order) {
-			self.orders.push({
-				index : self.orders.length,
+		if (!product) {
+			self.products.push({
+				index : self.products.length,
 				item : item,
 				quantity : 1
 			});
 		} else {
-			order.quantity++;
+			product.quantity++;
 		}
-	};
-	
+	}
+
+	/**
+	 * Remove this item.
+	 * @param item
+	 */
 	function removeItem(item) {
-		var order = self.findOrder(item);
-		if (order) {
-			self.orders.splice(order.index, 1);
+		var product = self.findProduct(item);
+		if (product) {
+			self.products.splice(product.index, 1);
 		}
-	};	
-	
+	}
+
+	/**
+	 * Increase item quantity in the cart.
+	 * @param item
+	 */
 	function increaseItem(item) {
-		var order = self.findOrder(item);
-		if (!order) {
+		var product = self.findProduct(item);
+		if (!product) {
 			return;
 		}
-		
-		order.quantity++;
-	};
-	
+
+		product.quantity++;
+	}
+
+	/**
+	 * Decrease item quantity in the cart.
+	 * After, if quantity is 0, the item is removed.
+	 * @param item
+	 */
 	function decreaseItem(item) {
-		var order = self.findOrder(item);
-		if (!order) {
+		var product = self.findProduct(item);
+		if (!product) {
 			return;
 		}
 		
-		if (order.quantity == 1) {
+		if (product.quantity == 1) {
 			self.removeItem(item);
 		} else {
-			order.quantity--;
+			product.quantity--;
 		}
-	};
-	
-	function empty() {
-		return !self.orders.length;
-	};
-
-	function clear() {
-		self.orders.splice(0, self.orders.length);
 	}
-	
+
+	/**
+	 * Checks if cart is empty.
+	 * @returns boolean
+	 */
+	function empty() {
+		return !self.products.length;
+	}
+
+	/**
+	 * Clear the cart.
+	 */
+	function clear() {
+		self.products.splice(0, self.products.length);
+	}
+
+	/**
+	 * Calculating the real total price, and the sale total price
+	 * by getting current offers for this cart.
+	 */
 	function calculation() {
 		var _total = 0;
 		
-		self.orders.forEach(function(value, idx) {
-			_total += value.quantity * value.item.price; 
-		});
+		self.products
+			.forEach(value => _total += value.quantity * value.item.price);
 		
 		self.realTotal = _total;
 		
-		saleService.getAndApplyOffers(self.orders, _total, function(offeredTotal) {
-			self.total = offeredTotal;
-		});
-	};
+		saleService.getAndApplyOffers(
+			self.products,
+			_total,
+			offeredTotal => self.total = offeredTotal
+		);
+	}
 	
 	return self;
 }

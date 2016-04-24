@@ -1,5 +1,6 @@
-<div class="panel panel-default cart">
+<div class="panel panel-warning cart">
 	<div class="panel-heading">
+		<i class="glyphicon glyphicon-shopping-cart"></i>
 		<span class="clickable" ng-click="cart.toggle()">
 			Cart <i class="glyphicon" ng-class="{'glyphicon-chevron-down' : cart.toggled, 'glyphicon-chevron-up' : !cart.toggled}"></i>
 		</span> 
@@ -21,22 +22,22 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr ng-repeat="order in cart.orders()">
-				<th>{{ order.item.title }}</th>
+			<tr ng-repeat="product in cart.products()">
+				<th>{{ product.item.title }}</th>
 				<th>
-					<span class="label label-default" ng-click="cart.increaseItem(order.item)">
-						<i class="glyphicon glyphicon-plus"></i>
+					<span class="label label-default" ng-click="cart.increaseItem(product.item)">
+						<i class="glyphicon glyphicon-plus clickable"></i>
 					</span>
-					{{ order.quantity }} 
-					<span class="label label-default" ng-click="cart.decreaseItem(order.item)">
-						<i class="glyphicon glyphicon-minus"></i>
+					{{ product.quantity }}
+					<span class="label label-default" ng-click="cart.decreaseItem(product.item)">
+						<i class="glyphicon glyphicon-minus clickable"></i>
 					</span>
 				</th>
-				<th>{{ order.item.price }}</th>
+				<th>{{ product.item.price }}</th>
 			</tr>					
 		</tbody>
-		<tfooter>
-			<tr>
+		<tfoot>
+			<tr class="table-warning">
 				<td>
 					<strong>Total</strong>
 				</td>
@@ -47,6 +48,6 @@
 					</div>
 				</td>
 			</tr>
-		</tfooter>
+		</tfoot>
 	</table>
 </div>

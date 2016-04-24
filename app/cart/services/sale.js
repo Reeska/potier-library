@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 export default function saleService($http, config) {
 	var self = this;
 	
@@ -12,49 +14,68 @@ export default function saleService($http, config) {
 	/*
 	 * Implementation
 	 */
+
+	/**
+	 * Get offers for this books and apply best offer.
+	 *
+	 * @param books Book list to get offers for.
+	 * @param total Real total price for these books.
+	 * @param fn Callback called when calculation is over.
+	 */
 	function getAndApplyOffers(books, total, fn) {
-		self.getOffers(books, function(offers) {
+		self.getOffers(books, offers => {
 			var offeredTotal = self.applyOffers(total, offers);
 			
 			angular.isFunction(fn) && fn(offeredTotal);
 		});
-	};
-	
+	}
+
+	/**
+	 * Get all offers for these books.
+	 *
+	 * @param books
+	 * @param fn Callback called when offers will be retrieved.
+	 */
 	function getOffers(books, fn) {
 		if (!books || !books.length) {
 			angular.isFunction(fn) && fn();
 			return;
 		}
 		
-		var isbns = [];
-		books.forEach(function(value) {
-			this.push(value.item.isbn);
-		}, isbns);
+		let isbns = books.map(value => value.item.isbn);
 		
-		var uri = config.serviceDomain + '/' +
+		let uri = config.serviceDomain + '/' +
 			config.services.books + '/' +
 			isbns.join(',') + '/' +
 			config.services.offers; 
 		
 		$http
 		.get(uri)
-		.then(function(response) {
-			angular.isFunction(fn) && fn(response.data.offers);
-		}, function(response) {
-			// error
-			angular.isFunction(fn) && fn();
-		});
-	};
-	
+		.then(
+			response => fn(response.data.offers),
+			fn
+		);
+	}
+
+	/**
+	 * Apply best offer to this total.
+	 *
+	 * @param total Cart total
+	 * @param offers Offers for cart's books.
+	 * @returns number
+	 */
 	function applyOffers(total, offers) {
 		if (!offers || !offers.length) {
 			return total;
 		}
 		
-		var minus;
-		
-		offers.forEach(function(value) {
-			var value = self.applyOffer(total, value);
+		var minus = undefined;
+
+		/**
+		 * Test all offers
+		 */
+		offers.forEach(value => {
+			let value = self.applyOffer(total, value);
 			
 			if (minus === undefined || value < minus) {
 				minus = value;
@@ -62,8 +83,15 @@ export default function saleService($http, config) {
 		});
 		
 		return minus;
-	};
-	
+	}
+
+	/**
+	 * Apply offer to this total.
+	 *
+	 * @param total Cart total
+	 * @param offer Offer to apply
+	 * @returns number
+	 */
 	function applyOffer(total, offer) {
 		switch(offer.type) {
 		case 'percentage':
@@ -76,7 +104,7 @@ export default function saleService($http, config) {
 		}
 		
 		return total;
-	};	
+	}
 	
 	return self;
 }

@@ -1,40 +1,44 @@
 export default {
-	templateUrl: 'app/views/catalog.html',
-	bindings : {
-	},
-	controller : function(catalogService) {
-		var self = this;
-
-		/*
-		 * Init
-		 */
-		self.$onInit = function() {
-			self.search();
-		};
-		
-		/*
-		 * Properties
-		 */
-		self.books = [];
-		self.filter = '';
-		self.loading = false;
-		
-		/*
-		 * API
-		 */
-		self.search = search;
-
-		/*
-		 * Implementation
-		 */
-		function search() {
-			self.loading = true;
-			
-			catalogService.search(self.filter, function(list, error) {
-				self.books = list;
-				self.loading = false;
-			});
-		};
-	}
+	templateUrl: 'app/views/components/catalog.html',
+	controllerAs: 'catalog',
+	controller : Catalog
 }
 ;
+
+function Catalog(catalogService) {
+	var self = this;
+	
+	/*
+	 * Properties
+	 */
+	self.books = [];
+	self.filter = '';
+	self.loading = false;
+	
+	/*
+	 * API
+	 */
+	self.search = search;
+
+	/*
+	 * Init
+	 */
+	self.$onInit = self.search;
+
+	/*
+	 * Implementation
+	 */
+
+	/**
+	 * Search books for this filter.
+	 * Loading image is displayed during searching.
+	 */
+	function search() {
+		self.loading = true;
+		
+		catalogService.search(self.filter, list => {
+			self.books = list;
+			self.loading = false;
+		});
+	}
+}

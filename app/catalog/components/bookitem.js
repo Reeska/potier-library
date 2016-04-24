@@ -1,14 +1,14 @@
 export default {
-	templateUrl: 'app/views/bookItem.html',
+	templateUrl: 'app/views/components/bookItem.html',
 	controllerAs: 'item',
 	bindings : {
 		book: '='
 	},
-	controller : bookItem
+	controller : BookItem
 }
 ;
 
-function bookItem(cartService) {
+function BookItem(cartService) {
 	var self = this;
 	
 	/*

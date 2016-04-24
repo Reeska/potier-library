@@ -2,7 +2,13 @@
  * Layout
  */
 header {
+	&.jumbotron {
+		padding-bottom: 0; //
+	}
 
+	h1 {
+	    text-align: center;
+	}
 }
 
 footer {
@@ -39,4 +45,10 @@ footer {
 
 .clickable {
 	cursor: pointer;
+}
+
+.table-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
 }

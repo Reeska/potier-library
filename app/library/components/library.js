@@ -1,20 +1,10 @@
 export default {
-	templateUrl: 'app/views/library.html',
+	templateUrl: 'app/views/components/library.html',
 	controllerAs: 'library',
-	bindings : {
-	},
-	controller : library
+	controller : Library
 }
 ;
 
-function library($scope) {
-	var self = this;
-	
-	self.$onInit = function() {
-	    /*
-	     * End loading
-	     */
-	    var $body = angular.element('body');
-	    $body.removeClass('loader');			
-	};
+function Library() {
+
 }

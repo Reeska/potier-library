@@ -1,0 +1,27 @@
+.library {
+	/*
+	 * Catalog component
+	 */
+	.catalog {
+	    float: left;
+	    width: 69%;
+
+		@media screen and (max-width: 700px) {
+			width: 100%;
+			float: none;
+		}
+	}
+	
+	/*
+	 * Cart component
+	 */
+	.cart {
+	    float: right;
+	    width: 30%;
+
+		@media screen and (max-width: 700px) {
+			width: 100%;
+			float: none;
+		}
+	}
+}

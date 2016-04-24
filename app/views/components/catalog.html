@@ -1,0 +1,24 @@
+<div class="panel panel-default catalog">
+	<div class="panel-heading">
+		<i class="glyphicon glyphicon-book"></i> Books
+	</div>
+	
+	<div class="panal-body">
+		<div class="input-group">
+			<span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span>
+			<input type="text"
+				   class="form-control"
+				   ng-model="catalog.filter"
+				   ng-change="catalog.search()"
+				   placeholder="Search"
+			/>
+		</div>
+	</div>	
+	
+	<div class="table books" ng-class="{'loader' : catalog.loading}">
+		<div class="emptiness list-group-item" ng-show="catalog.books.length == 0">
+			<p>No results.</p>
+		</div>	
+		<book-item book="book" ng-repeat="book in catalog.books"></book-item>
+	</div>
+</div>

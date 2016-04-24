@@ -2,19 +2,20 @@
  * Cart component
  */
 .cart {
-    float: right;
-    width: 30%;
-
 	.emptiness {
 		font-style: italic;
 	}    
 
 	.total {
 		text-align: right;
+	    font-size: 1.2em;
+	    font-weight: bold;
 	}	
 
 	.real-total {
 		text-decoration: line-through;
+		font-size: .8em;
+		font-weight: normal;
 	}	
 
 	.actions {

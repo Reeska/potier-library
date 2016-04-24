@@ -1,3 +1,5 @@
+import angular from 'angular';
+
 export default function storageService($window) {
 	var self = this;
 
@@ -7,27 +9,31 @@ export default function storageService($window) {
 	/*
 	 * Initialize service : load data from localStorage
 	 */
-	init();
+	load();
 
 	/*
 	 * On exit save data in localStorage
 	 */
-    $window.addEventListener('beforeunload', destroy);		
+    $window.addEventListener('beforeunload', save);
 
-	function init() {
+	/**
+	 * Load data from localStorage.
+	 */
+	function load() {
 		if (localStorage[self.stamp]) {
 			self.data = angular.fromJson(localStorage[self.stamp]);
 		}
-		console.log('data loaded from localStorage');
-	};
+	}
 
-	function destroy() {
+	/**
+	 * Save data to localStorage.
+	 */
+	function save() {
 		localStorage[self.stamp] = angular.toJson(self.data);
-		console.log('data saved in localStorage');
-	};
+	}
 
 	return {
-		get: function(name, value, override) {
+		get: (name, value, override) => {
             if (override || !self.data[name])
                 self.data[name] = value;
                 

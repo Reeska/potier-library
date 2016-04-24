@@ -1,0 +1,16 @@
+<div class="well" ng-if="confirmation.order">
+    Order is confirmed, you will receive it soon.
+
+    <h3>Resume</h3>
+
+    <ul>
+        <li>Total paid : {{ confirmation.order.total }} &euro;</li>
+        <li>Shippement address :
+            <address address="confirmation.order.address" readonly="true"></address>
+        </li>
+    </ul>
+</div>
+
+<div class="well" ng-if="!confirmation.order">
+    No order found.
+</div>

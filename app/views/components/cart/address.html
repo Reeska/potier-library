@@ -1,0 +1,31 @@
+<div ng-if="item.readonly">
+    <p>
+        {{ item.address.firstname }}<br />
+        {{ item.address.lastname }}<br />
+        {{ item.address.street }}<br />
+        {{ item.address.zip }} {{ item.address.city }}
+    </p>
+</div>
+
+<div ng-if="!item.readonly">
+    <fieldset class="form-group">
+        <label for="first-name">First name</label>
+        <input type="text" class="form-control" id="first-name" placeholder="John" ng-model="item.address.firstname">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="last-name">Last name</label>
+        <input type="text" class="form-control" id="last-name" placeholder="Smith" ng-model="item.address.lastname">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" placeholder="12 rue de Rivoli" ng-model="item.address.street">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="zipcode">Zip code</label>
+        <input type="text" class="form-control" id="zipcode" placeholder="75004" ng-model="item.address.zip">
+    </fieldset>
+    <fieldset class="form-group">
+        <label for="city">City</label>
+        <input type="text" class="form-control" id="city" placeholder="Paris" ng-model="item.address.city">
+    </fieldset>
+</div>

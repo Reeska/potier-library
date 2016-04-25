@@ -20,7 +20,15 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.5",
+    "jasmine": "^2.4.1",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chrome-launcher": "^0.2.3",
+    "karma-jasmine": "^0.3.8",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack": "^1.7.0",
     "node-sass": "^3.5.3",
+    "phantomjs-prebuilt": "^2.1.7",
     "sass-loader": "^3.2.0",
     "serve-static": "^1.10.2",
     "style-loader": "^0.13.1",
@@ -31,6 +39,7 @@
   "scripts": {
     "start": "node node_modules/concurrently/src/main.js \"npm run watch\" \"npm run serve\"",
     "watch": "node node_modules/webpack/bin/webpack.js --watch -d",
-    "serve": "node server.js"
+    "serve": "node server.js",
+    "test": "karma start karma.config.js"
   }
 }

@@ -9,7 +9,11 @@ Install dependencies with :
 
 `npm install`
 
-And run app with :
+Execute test with :
+
+`npm test`
+
+Finally run app with :
 
 `npm start`
 
